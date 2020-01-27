@@ -5,13 +5,11 @@ const Game = {
     width: undefined,
     height: undefined,
 
-    fps: 1,
+    fps: 25,
     interval: undefined,
+    counter: 0,
 
     player: undefined,
-    playerimg: {
-
-    },
 
     enemies: [],
     enemiesType: [],
@@ -23,15 +21,17 @@ const Game = {
         this.canvas = canvas
         this.ctx = canvas.getContext("2d")
 
+        this.setDimensions()
+        this.start()
+    },
+
+    setDimensions() {
+
         this.width = window.innerWidth
         this.height = window.innerHeight
 
-        console.log(this.width, this.height)
-
         this.canvas.width = this.width
         this.canvas.height = this.height
-
-        this.start()
     },
 
     start() {
@@ -43,8 +43,10 @@ const Game = {
 
     reset() {
         this.enemies = []
-        this.player = new Player(this.ctx, this.playerimg, this.width, this.height)
+        this.player = new Player(this.ctx, playerAnimations, this.width, this.height)
         this.background = new Background(this.ctx, this.backgroundimg, this.width, this.height)
+
+        counter = 0
 
     },
 
@@ -52,16 +54,19 @@ const Game = {
     engine() {
 
         this.interval = setInterval(() => {
-            this.clearScreen()
-            this.moveAll()
+            // this.clearScreen()
+            // this.moveAll()
             this.drawAll()
-        }, this.fps / 60)
+
+            this.player.idle(this.counter)
+
+            this.counter++
+        },1000/ this.fps)
     },
 
-    moveAll() {
+    // moveAll() {
 
-
-    },
+    // },
 
     clearScreen() {
 
@@ -72,7 +77,6 @@ const Game = {
 
         this.background.draw()
         this.enemies.forEach(elm => elm.draw())
-        this.player.draw()
 
     },
 
