@@ -88,6 +88,22 @@ playerimg = {
         "../img/player/Defector/death/defect_death0025.png",
         "../img/player/Defector/death/defect_death0026.png",
         "../img/player/Defector/death/defect_death0030.png",
+    ],
+
+    invoke: [
+        "../img/player/Defector/invoke/decfect_readys0001.png",
+        "../img/player/Defector/invoke/decfect_readys0002.png",
+        "../img/player/Defector/invoke/decfect_readys0003.png",
+        "../img/player/Defector/invoke/decfect_readys0004.png",
+        "../img/player/Defector/invoke/decfect_readys0005.png",
+        "../img/player/Defector/invoke/decfect_readys0006.png",
+        "../img/player/Defector/invoke/decfect_readys0007.png",
+        "../img/player/Defector/invoke/decfect_readys0008.png",
+        "../img/player/Defector/invoke/decfect_readys0009.png",
+        "../img/player/Defector/invoke/decfect_readys0010 copia 2.png",
+        "../img/player/Defector/invoke/decfect_readys0010 copia 3.png",
+        "../img/player/Defector/invoke/decfect_readys0010 copia.png",
+        "../img/player/Defector/invoke/decfect_readys0010.png",
     ]
 
 }
