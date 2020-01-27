@@ -6,9 +6,9 @@ class npc {
         this.gameH = gameH
 
         this.posX = 0
-        this.posY = 0
+        this.posY = gameH * .75
 
-        this.width = 200
+        this.width = 80
         this.height = 100
 
         this.frames = 5
@@ -45,13 +45,23 @@ class npc {
 
     }
 
-    attack() {
+    attack(counter) {
 
-
+        this.ctx.drawImage(
+            this.animeAttack,
+            this.animeAttack.idx * Math.floor(this.animeAttack.width / this.animeAttack.frames),
+            0,
+            Math.floor(this.animeAttack.width / this.animeAttack.frames),
+            this.animeAttack.height,
+            this.posX,
+            this.posY,
+            this.width,
+            this.height
+        )
+        this.animate(counter, this.animeAttack)
     }
 
     idle(counter) {
-        console.log(this.animeIdle.idx)
 
         this.ctx.drawImage(
             this.animeIdle,
@@ -67,18 +77,52 @@ class npc {
         this.animate(counter, this.animeIdle)
     }
 
-    death() {
-
+    death(counter) {
+        this.ctx.drawImage(
+            this.animeDeath,
+            this.animeDeath.idx * Math.floor(this.animeDeath.width / this.animeDeath.frames),
+            0,
+            Math.floor(this.animeDeath.width / this.animeDeath.frames),
+            this.animeDeath.height,
+            this.posX,
+            this.posY,
+            this.width,
+            this.height
+        )
+        this.animate(counter, this.animeDeath)
 
     }
 
-    hit() {
+    hit(counter) {
 
+        this.ctx.drawImage(
+            this.animeHit,
+            this.animeHit.idx * Math.floor(this.animeHit.width / this.animeHit.frames),
+            0,
+            Math.floor(this.animeHit.width / this.animeHit.frames),
+            this.animeHit.height,
+            this.posX,
+            this.posY,
+            this.width,
+            this.height
+        )
+        this.animate(counter, this.animeHit)
 
     }
 
-    walk() {
-
+    walk(counter) {
+        this.ctx.drawImage(
+            this.animeWalk,
+            this.animeWalk.idx * Math.floor(this.animeWalk.width / this.animeWalk.frames),
+            0,
+            Math.floor(this.animeWalk.width / this.animeWalk.frames),
+            this.animeWalk.height,
+            this.posX,
+            this.posY,
+            this.width,
+            this.height
+        )
+        this.animate(counter, this.animeWalk)
 
     }
 

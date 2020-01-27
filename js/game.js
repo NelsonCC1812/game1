@@ -17,10 +17,15 @@ const Game = {
     background: undefined,
     backgroundimg: "img/background/background.png",
 
+    controls:{
+
+    },
+
     init(canvas) {
         this.canvas = canvas
         this.ctx = canvas.getContext("2d")
 
+        this.setListeners()
         this.setDimensions()
         this.start()
     },
@@ -64,10 +69,6 @@ const Game = {
         },1000/ this.fps)
     },
 
-    // moveAll() {
-
-    // },
-
     clearScreen() {
 
         this.ctx.clearRect(0, 0, this.width, this.height)
@@ -83,6 +84,13 @@ const Game = {
     random() {
 
         return Math.random()
-    }
+    },
+
+setListeners(){
+
+    
+
+
+}
 
 }
