@@ -1,12 +1,11 @@
-class Player{
+class Player extends npc{
 
 constructor(ctx, imgSrc, gameW, gameH){
 
-    this._ctx=ctx
-    this._gameW= gameW
-    this.gameH= gameH
+    super(ctx, imgSrc, gameW, gameH)
 
-    this.imgSrc=imgSrc
+    this.speed= undefined
+
 
 }
 

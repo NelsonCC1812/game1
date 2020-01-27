@@ -1,29 +1,32 @@
-class Background{
+class Background {
 
-    constructor(ctx, imgSrc, gameW, gameH){
+    constructor(ctx, imgSrc, gameW, gameH) {
 
-        this.ctx= ctx
-        this.gameW= gameW
-        this.gameH=gameH
+        this.ctx = ctx
+        this.gameW = gameW
+        this.gameH = gameH
 
-        this.posX= undefined
-        this.posY= undefined
+        this.posX = 0
+        this.posY = 0
 
 
-        this.img= new Image()
-        this.img.src= imgSrc
-        
+        this.img = new Image()
+        this.img.src = imgSrc
+
     }
 
-    draw(){
+    draw() {
 
-        ctx.drawImage(img, this.posX, this.posY, this.gameW, gameH)
-        ctx.drawImage(img, this.posX+this.gameW,this.posY,this.gameW, this.gameH)
+        this.ctx.drawImage(this.img, this.posX - this.gameW, this.posY, this.gameW, this.gameH)
+        this.ctx.drawImage(this.img, this.posX, this.posY, this.gameW, this.gameH)
+        this.ctx.drawImage(this.img, this.posX + this.gameW, this.posY, this.gameH, this.gameH)
     }
 
-    move(speed){
+    move(speed) {
 
-        this.posX+=speed
+        this.posX -= speed
+
+        if (this.this.posX <= -this.gameW) this.posX = 0
     }
 
 }
