@@ -87,8 +87,10 @@ const Game = {
     },
 
 setListeners(){
+    window.setListeners= (e)=>{
 
-    
+        console.log(e.keyCode)
+    }
 
 
 }
