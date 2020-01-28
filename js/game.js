@@ -30,7 +30,6 @@ const Game = {
         this.canvas = canvas
         this.ctx = canvas.getContext("2d")
 
-        this.setListeners()
         this.setDimensions()
         this.start()
     },
@@ -53,8 +52,9 @@ const Game = {
 
     reset() {
         this.enemies = []
-        this.player = new Player(this.ctx, playerAnimations, this.width, this.height)
+        this.player = new Player(this.ctx, playerAnimations, this.controls, this.width, this.height)
         this.background = new Background(this.ctx, this.backgroundimg, this.width, this.height)
+        this.player.setListeners()
 
         counter = 0
 
@@ -64,16 +64,16 @@ const Game = {
     engine() {
 
         this.interval = setInterval(() => {
-            // this.clearScreen()
-            // this.moveAll()
+            this.clearScreen()
+            this.moveAll()
             this.drawAll()
 
 
 
-            if (this.counter % 40 == 0) {
-                let obj = new Enemy(this.ctx, skeletonAnimations, this.width, this.height)
-                this.enemies.push(obj)
-            }
+            // if (this.counter % 40 == 0) {
+            //     let obj = new Enemy(this.ctx, skeletonAnimations, this.width, this.height)
+            //     this.enemies.push(obj)
+            // }
 
             this.counter++
         }, 1000 / this.fps)
@@ -87,45 +87,18 @@ const Game = {
     drawAll() {
 
         this.background.draw()
-        this.enemies.forEach(elm => elm.idle())
 
-        if (!this.action) this.player.idle(this.counter, this.action)
-        else this.action = false
+        this.player.draw(this.counter)
     },
 
     random() {
 
         return Math.random()
     },
+    moveAll() {
 
-    setListeners() {
-        document.onkeydown = (e) => {
-
-
-
-            switch (e.keyCode) {
-                case this.controls.j:
-                    this.action = "attack"
-                    this.action = this.player.attack(this.counter, this.action);
-                    console.log(this.action)
-                    break;
-                case this.controls.d:
-                    this.player.walk(this.counter, this.action);
-                    break;
-                case this.controls.s:
-                    this.player.block(this.counter, this.action);
-                    break;
-                case this.controls.space:
-                    this.player.invoke(this.counter, this.action);
-                    break;
-                case this.controls.k:
-                    this.player.throw(this.counter, this.action);
-                    break;
-
-            }
-        }
-
-
+        this.enemies.forEach(elm => elm.move())
     }
+
 
 }

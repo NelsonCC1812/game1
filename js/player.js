@@ -1,92 +1,78 @@
 class Player extends npc {
 
-    constructor(ctx, animeSet, gameW, gameH) {
+    constructor(ctx, animeSet, controls, gameW, gameH) {
 
         super(ctx, animeSet, gameW, gameH)
 
         this.speed = undefined
+        this.posY = gameH * .75
 
         this.width = 120
         this.height = 150
-
-        this.posYO = this.posY - this.width
-
-        this.animeBlock = new Image()
-        this.animeBlock.src = this.animeSet.block.img
-        this.animeBlock.frames = this.animeSet.block.frames
-        this.animeBlock.idx = 0
-
-
-
-        this.animeThrow = new Image()
-        this.animeThrow.src = this.animeSet.throw.img
-        this.animeThrow.frames = this.animeSet.throw.frames
-        this.animeThrow.idx = 0
-
-        this.animeInvoke = new Image()
-        this.animeInvoke.src = this.animeSet.invoke.img
-        this.animeInvoke.frames = this.animeSet.invoke.frames
-        this.animeInvoke.idx = 0
-
-    }
-
-
-    block(counter) {
-        this.ctx.drawImage(
-            this.animeBlock,
-            this.animeBlock.idx * Math.floor(this.animeBlock.width / this.animeBlock.frames),
-            0,
-            Math.floor(this.animeBlock.width / this.animeBlock.frames),
-            this.animeBlock.height,
-            this.posX,
-            this.posY,
-            this.width,
-            this.height
-        )
-        this.animate(counter, this.animeBlock)
-
+        this.controls = controls
 
 
     }
+    setListeners() {
+        document.onkeydown = (e) => {
 
-    invoke(counter) {
+            switch (e.keyCode) {
+
+                case this.controls.j:
+
+                    this.sprite.src = this.animeSet.attack.img
+                    this.sprite.idx = 0
+                    this.sprite.frames = this.animeSet.attack.frames
+                    this.height = 240
+                    this.width = 180
+                    this.posY = this.gameH * .95 - this.height
+                    break;
+
+                case this.controls.d:
+
+                    this.sprite.src = this.animeSet.walk.img
+                    this.sprite.idx = 0
+                    this.sprite.frames = this.animeSet.walk.frames
+                    this.height = 150
+                    this.width = 100
+                    this.posY = this.gameH * .94 - this.height
+                    break;
+
+                case this.controls.s:
+
+                    this.sprite.src = this.animeSet.block.img
+                    this.sprite.idx = 0
+                    this.sprite.frames = this.animeSet.block.frames
+                    this.height = 150
+                    this.width = 100
+                    this.posY = this.gameH * .94 - this.height
+
+                    break;
+                case this.controls.space:
+
+                    this.sprite.src = this.animeSet.invoke.img
+                    this.sprite.idx = 0
+                    this.sprite.frames = this.animeSet.invoke.frames
+                    this.height = 180
+                    this.width = 120
+                    this.posY = this.gameH * .94 - this.height
+
+                    break;
+                case this.controls.k:
+
+                    this.sprite.src = this.animeSet.throw.img
+                    this.sprite.idx = 0
+                    this.sprite.frames = this.animeSet.throw.frames
+                    this.height = 200
+                    this.width = 180
+                    this.posY = this.gameH * .94 - this.height
 
 
+                    break;
 
-        this.ctx.drawImage(
-            this.animeInvoke,
-            this.animeInvoke.idx * Math.floor(this.animeInvoke.width / this.animeInvoke.frames),
-            0,
-            Math.floor(this.animeInvoke.width / this.animeInvoke.frames),
-            this.animeInvoke.height,
-            this.posX,
-            this.posY,
-            this.width,
-            this.height
-        )
-        this.animate(counter, this.animeInvoke)
-
+            }
+        }
 
 
     }
-
-    throw (counter) {
-
-
-        this.ctx.drawImage(
-            this.animeThrow,
-            this.animeThrow.idx * Math.floor(this.animeThrow.width / this.animeThrow.frames),
-            0,
-            Math.floor(this.animeThrow.width / this.animeThrow.frames),
-            this.animeThrow.height,
-            this.posX,
-            this.posY,
-            this.width,
-            this.height
-        )
-        this.animate(counter, this.animeThrow)
-
-
-    }
-
 }
