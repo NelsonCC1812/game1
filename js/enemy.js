@@ -4,14 +4,37 @@ class Enemy extends npc {
 
         super(ctx, animeSet, gameW, gameH)
 
+        this.width = 100
+        this.height = 150
+
         this.speed = 5
         this.posX = gameW
         this.posY = gameH * .93 - this.height
 
-        this.sprite.src = this.animeSet.walk.img
-        this.sprite.frames = this.animeSet.walk.frames
-        this.sprite.idx = 0
+        this.sprite.src = this.animeSet.attack.img
+        this.sprite.frames = this.animeSet.attack.frames
+        this.sprite.idx = this.sprite.frames
 
+    }
+    draw(counter) {
+        this.ctx.drawImage(
+            this.sprite,
+            this.sprite.idx * Math.floor(this.sprite.width / this.sprite.frames),
+            0,
+            Math.floor(this.sprite.width / this.sprite.frames),
+            this.sprite.height,
+            this.posX,
+            this.posY,
+            this.width,
+            this.height
+        )
+        this.animate(counter)
+    }
+    animate(counter) {
+        if (counter % this.frames) {
+            this.sprite.idx--
+            if (this.sprite.idx < 0) this.sprite.idx = this.sprite.frames
+        }
     }
 
     move() {
