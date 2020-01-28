@@ -26,26 +26,36 @@ class Player extends npc {
                     this.height = 240
                     this.width = 180
                     this.posY = this.gameH * .95 - this.height
+                    this.sprite.time = 250
                     break;
 
                 case this.controls.d:
 
-                    this.sprite.src = this.animeSet.walk.img
-                    this.sprite.idx = 0
-                    this.sprite.frames = this.animeSet.walk.frames
-                    this.height = 150
-                    this.width = 100
-                    this.posY = this.gameH * .94 - this.height
+                    if (!this.sprite.test) {
+
+                        this.sprite.src = this.animeSet.walk.img
+                        this.sprite.idx = 0
+                        this.sprite.frames = this.animeSet.walk.frames
+                        this.height = 150
+                        this.width = 100
+                        this.posY = this.gameH * .94 - this.height
+                        this.sprite.test = true
+                    }
+
                     break;
 
                 case this.controls.s:
 
-                    this.sprite.src = this.animeSet.block.img
-                    this.sprite.idx = 0
-                    this.sprite.frames = this.animeSet.block.frames
-                    this.height = 150
-                    this.width = 100
-                    this.posY = this.gameH * .94 - this.height
+                    if (!this.sprite.test) {
+
+                        this.sprite.src = this.animeSet.block.img
+                        this.sprite.idx = 0
+                        this.sprite.frames = this.animeSet.block.frames
+                        this.height = 150
+                        this.width = 100
+                        this.posY = this.gameH * .94 - this.height
+                        this.sprite.test = true
+                    }
 
                     break;
                 case this.controls.space:
@@ -56,6 +66,7 @@ class Player extends npc {
                     this.height = 180
                     this.width = 120
                     this.posY = this.gameH * .94 - this.height
+                    this.sprite.time = 500
 
                     break;
                 case this.controls.k:
@@ -66,11 +77,37 @@ class Player extends npc {
                     this.height = 200
                     this.width = 180
                     this.posY = this.gameH * .94 - this.height
+                    this.sprite.time = 500
 
 
                     break;
 
             }
+        }
+
+        document.onkeyup = e => {
+            if (e.keyCode === this.controls.d) {
+                this.posY = this.gameH * 0.75
+                this.width = 100
+                this.height = 150
+                this.sprite.src = this.animeSet.idle.img
+                this.sprite.frames = this.animeSet.idle.frames
+                this.sprite.time = undefined
+                this.sprite.idx = 0
+                this.sprite.test = false
+            }
+            if (e.keyCode === this.controls.s) {
+
+                this.posY = this.gameH * 0.75
+                this.width = 100
+                this.height = 150
+                this.sprite.src = this.animeSet.idle.img
+                this.sprite.frames = this.animeSet.idle.frames
+                this.sprite.time = undefined
+                this.sprite.idx = 0
+                this.sprite.test = false
+            }
+
         }
 
 
