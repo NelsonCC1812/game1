@@ -22,7 +22,8 @@ const Game = {
         d: 68,
         s: 83,
         space: 32,
-        k: 75
+        k: 75,
+        a: 65
     },
     action: false,
 

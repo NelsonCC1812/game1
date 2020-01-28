@@ -4,7 +4,7 @@ class Player extends npc {
 
         super(ctx, animeSet, gameW, gameH)
 
-        this.speed = undefined
+        this.speed = 10
         this.posY = gameH * .75
 
         this.width = 120
@@ -13,8 +13,17 @@ class Player extends npc {
 
 
     }
+    walk() {
+        this.posX += this.speed
+    }
+    walkBack() {
+        this.posX -= this.speed
+    }
+
     setListeners() {
         document.onkeydown = (e) => {
+
+            console.log(e.keyCode)
 
             switch (e.keyCode) {
 
@@ -30,6 +39,22 @@ class Player extends npc {
                     break;
 
                 case this.controls.d:
+                    this.walk()
+
+                    if (!this.sprite.test) {
+
+                        this.sprite.src = this.animeSet.walk.img
+                        this.sprite.idx = 0
+                        this.sprite.frames = this.animeSet.walk.frames
+                        this.height = 150
+                        this.width = 100
+                        this.posY = this.gameH * .94 - this.height
+                        this.sprite.test = true
+                    }
+
+                    break;
+                case this.controls.a:
+                    this.walkBack()
 
                     if (!this.sprite.test) {
 
@@ -107,6 +132,18 @@ class Player extends npc {
                 this.sprite.idx = 0
                 this.sprite.test = false
             }
+
+            if (e.keyCode === this.controls.a) {
+                this.posY = this.gameH * 0.75
+                this.width = 100
+                this.height = 150
+                this.sprite.src = this.animeSet.idle.img
+                this.sprite.frames = this.animeSet.idle.frames
+                this.sprite.time = undefined
+                this.sprite.idx = 0
+                this.sprite.test = false
+            }
+
 
         }
 
