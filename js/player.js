@@ -11,6 +11,10 @@ class Player extends npc {
         this.height = 150
         this.controls = controls
 
+        this.sprite.src = this.animeSet.idle.img
+        this.sprite.frames = this.animeSet.idle.frames
+        this.sprite.idx = 0
+
 
     }
     walk() {
@@ -36,6 +40,7 @@ class Player extends npc {
                     this.width = 180
                     this.posY = this.gameH * .95 - this.height
                     this.sprite.time = 250
+
                     break;
 
                 case this.controls.d:

@@ -70,11 +70,11 @@ const Game = {
             this.drawAll()
 
 
+            if (this.counter % 50 == 0) {
+                this.enemies.push(new Enemy(this.ctx, skeletonAnimations, this.width, this.height))
+                console.log(this.enemies[0].posY)
+            }
 
-            // if (this.counter % 40 == 0) {
-            //     let obj = new Enemy(this.ctx, skeletonAnimations, this.width, this.height)
-            //     this.enemies.push(obj)
-            // }
 
             this.counter++
         }, 1000 / this.fps)
@@ -88,16 +88,11 @@ const Game = {
     drawAll() {
 
         this.background.draw()
-
+        this.enemies.forEach(elm => elm.draw(this.counter))
         this.player.draw(this.counter)
     },
 
-    random() {
-
-        return Math.random()
-    },
     moveAll() {
-
         this.enemies.forEach(elm => elm.move())
     }
 

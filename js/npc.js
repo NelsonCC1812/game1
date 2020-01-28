@@ -20,10 +20,9 @@ class npc {
         this.animeSet = animeSet
 
         this.sprite = new Image()
-        this.sprite.src = this.animeSet.idle.img
-        this.sprite.frames = this.animeSet.idle.frames
+
         this.sprite.time = undefined
-        this.sprite.idx = 0
+
     }
 
     draw(counter) {
@@ -39,6 +38,7 @@ class npc {
                 this.sprite.src = this.animeSet.idle.img
                 this.sprite.frames = this.animeSet.idle.frames
                 this.sprite.time = undefined
+                this.sprite.att = false
                 this.sprite.idx = 0
 
             }, this.sprite.time)
