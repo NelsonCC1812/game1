@@ -47,18 +47,21 @@ class npc {
 
     attack(counter) {
 
-        this.ctx.drawImage(
-            this.animeAttack,
-            this.animeAttack.idx * Math.floor(this.animeAttack.width / this.animeAttack.frames),
-            0,
-            Math.floor(this.animeAttack.width / this.animeAttack.frames),
-            this.animeAttack.height,
-            this.posX,
-            this.posY,
-            this.width,
-            this.height
-        )
-        this.animate(counter, this.animeAttack)
+        while (true) {
+
+            this.ctx.drawImage(
+                this.animeAttack,
+                this.animeAttack.idx * Math.floor(this.animeAttack.width / this.animeAttack.frames),
+                0,
+                Math.floor(this.animeAttack.width / this.animeAttack.frames),
+                this.animeAttack.height,
+                this.posX,
+                this.posY,
+                this.width,
+                this.height
+            )
+            if (this.animate(counter, this.animeAttack)) return false
+        }
     }
 
     idle(counter) {
@@ -132,6 +135,8 @@ class npc {
             img.idx++
             if (img.idx > img.frames - 1) img.idx = 0
         }
+
+        if (img.idx <= img.frames) return true
     }
 
 

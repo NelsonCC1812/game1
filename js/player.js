@@ -51,6 +51,8 @@ class Player extends npc {
 
     invoke(counter) {
 
+
+
         this.ctx.drawImage(
             this.animeInvoke,
             this.animeInvoke.idx * Math.floor(this.animeInvoke.width / this.animeInvoke.frames),
@@ -69,6 +71,7 @@ class Player extends npc {
     }
 
     throw (counter) {
+
 
         this.ctx.drawImage(
             this.animeThrow,
