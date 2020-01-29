@@ -20,6 +20,11 @@ class Player extends npc {
 
 
     }
+    showHealth() {
+        this.ctx.fillStyle = "red"
+        this.ctx.fillRect(0, 0, this.health * 10, 20)
+    }
+
     walk() {
         this.posX += this.speed
     }

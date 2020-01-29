@@ -52,6 +52,7 @@ const Game = {
     },
 
     reset() {
+        this.status = "playing"
         this.enemies = []
         this.player = new Player(this.ctx, playerAnimations, this.controls, this.width, this.height)
         this.background = new Background(this.ctx, this.backgroundimg, this.width, this.height)
@@ -67,6 +68,7 @@ const Game = {
         this.interval = setInterval(() => {
             this.clearScreen()
             this.drawAll()
+            this.player.showHealth()
             this.moveAll()
             this.checkAll()
             this.checkHealth()
@@ -140,7 +142,19 @@ const Game = {
     },
 
     checkHealth() {
-        if (this.player.health <= 0) {
+        if (this.player.health <= 0 && this.player.action != "death") {
+            this.player.sprite.src = this.player.animeSet.death.img
+            this.player.sprite.frames = this.player.animeSet.death.frames
+            this.player.sprite.idx = 0
+            this.player.action = "death"
+
+        }
+        if (this.player.action == "death") {
+            setTimeout(() => {
+                this.status = "dead"
+            }, 500)
+        }
+        if (this.status == "dead") {
             confirm("Reintentar?") ? this.reset() : window.close()
         }
     }
