@@ -6,14 +6,16 @@ class Enemy extends npc {
 
         this.width = 100
         this.height = 150
+        this.presetSpeed = 5
 
         this.speed = 5
         this.posX = gameW
         this.posY = gameH * .93 - this.height
 
-        this.sprite.src = this.animeSet.attack.img
-        this.sprite.frames = this.animeSet.attack.frames
-        this.sprite.idx = this.sprite.frames
+        this.sprite.src = this.animeSet.walk.img
+        this.sprite.frames = this.animeSet.walk.frames
+        this.sprite.idx = this.animeSet.walk.frames - 1
+        this.action = "walk"
 
     }
     draw(counter) {
@@ -33,12 +35,11 @@ class Enemy extends npc {
     animate(counter) {
         if (counter % this.frames) {
             this.sprite.idx--
-            if (this.sprite.idx < 0) this.sprite.idx = this.sprite.frames
+            if (this.sprite.idx < 0) this.sprite.idx = this.sprite.frames - 1
         }
     }
 
     move() {
-
         this.posX -= this.speed
     }
 

@@ -4,7 +4,9 @@ class Player extends npc {
 
         super(ctx, animeSet, gameW, gameH)
 
-        this.speed = 10
+        this.speed = 20
+        this.presetSpeed = 20
+        this.speedBack = 15
         this.posY = gameH * .75
 
         this.width = 120
@@ -21,7 +23,7 @@ class Player extends npc {
         this.posX += this.speed
     }
     walkBack() {
-        this.posX -= this.speed
+        this.posX -= this.speedBack
     }
 
     setListeners() {

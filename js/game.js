@@ -66,11 +66,12 @@ const Game = {
 
         this.interval = setInterval(() => {
             this.clearScreen()
-            this.moveAll()
             this.drawAll()
+            this.moveAll()
+            this.checkAll()
 
 
-            if (this.counter % 50 == 0) {
+            if (this.counter % 80 == 0) {
                 this.enemies.push(new Enemy(this.ctx, skeletonAnimations, this.width, this.height))
                 console.log(this.enemies[0].posY)
             }
@@ -94,6 +95,32 @@ const Game = {
 
     moveAll() {
         this.enemies.forEach(elm => elm.move())
+    },
+
+    checkAll() {
+
+        this.enemies.forEach(elm => {
+
+            if (elm.posX <= this.player.posX + this.player.width && elm.action != "attack") {
+
+                elm.sprite.src = elm.animeSet.attack.img
+                elm.sprite.frames = elm.animeSet.attack.frames
+                elm.sprite.idx = elm.sprite.frames - 1
+                elm.speed = 0
+                elm.action = "attack"
+                this.player.speed = 0
+                console.log("attack")
+
+            } else if (elm.action != "walk" && !(elm.posX <= this.player.posX + this.player.width)) {
+                elm.sprite.src = elm.animeSet.walk.img
+                elm.sprite.frames = elm.animeSet.walk.frames
+                elm.sprite.idx = elm.animeSet.walk.frames - 1
+                elm.speed = elm.presetSpeed
+                elm.action = "walk"
+                this.player.speed = this.player.presetSpeed
+                console.log("walk")
+            }
+        })
     }
 
 
