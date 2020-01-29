@@ -69,11 +69,11 @@ const Game = {
             this.drawAll()
             this.moveAll()
             this.checkAll()
+            this.checkHealth()
 
 
             if (this.counter % 80 == 0) {
                 this.enemies.push(new Enemy(this.ctx, skeletonAnimations, this.width, this.height))
-                console.log(this.enemies[0].posY)
             }
 
 
@@ -101,7 +101,16 @@ const Game = {
 
         this.enemies.forEach(elm => {
 
-            if (elm.posX <= this.player.posX + this.player.width && elm.action != "attack") {
+            if (elm.posX <= this.player.posX - 70 + this.player.width && !elm.process) {
+                elm.process = true
+                setTimeout(() => {
+                    if (elm.posX <= this.player.posX - 70 + this.player.width)
+                        this.player.receibeDamage(elm.damage)
+                    elm.process = false
+                }, 820)
+            }
+
+            if (elm.posX <= this.player.posX - 70 + this.player.width && elm.action != "attack") {
 
                 elm.sprite.src = elm.animeSet.attack.img
                 elm.sprite.frames = elm.animeSet.attack.frames
@@ -109,7 +118,11 @@ const Game = {
                 elm.speed = 0
                 elm.action = "attack"
                 this.player.speed = 0
-                console.log("attack")
+
+                elm.width = 150
+                elm.height = 200
+
+                elm.posY = this.height * .93 - elm.height
 
             } else if (elm.action != "walk" && !(elm.posX <= this.player.posX + this.player.width)) {
                 elm.sprite.src = elm.animeSet.walk.img
@@ -118,10 +131,18 @@ const Game = {
                 elm.speed = elm.presetSpeed
                 elm.action = "walk"
                 this.player.speed = this.player.presetSpeed
-                console.log("walk")
+
+                elm.width = 100
+                elm.height = 150
+                elm.posY = this.height * .93 - elm.height
             }
         })
-    }
+    },
 
+    checkHealth() {
+        if (this.player.health <= 0) {
+            confirm("Reintentar?") ? this.reset() : window.close()
+        }
+    }
 
 }

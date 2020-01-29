@@ -8,6 +8,7 @@ class Player extends npc {
         this.presetSpeed = 20
         this.speedBack = 15
         this.posY = gameH * .75
+        this.health = 100
 
         this.width = 120
         this.height = 150
@@ -26,10 +27,13 @@ class Player extends npc {
         this.posX -= this.speedBack
     }
 
+    receibeDamage(damage) {
+        this.health -= damage
+
+    }
+
     setListeners() {
         document.onkeydown = (e) => {
-
-            console.log(e.keyCode)
 
             switch (e.keyCode) {
 
