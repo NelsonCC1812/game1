@@ -8,7 +8,9 @@ class Player extends npc {
         this.presetSpeed = 20
         this.speedBack = 15
         this.posY = gameH * .75
-        this.health = 100
+        this.health = 200
+
+        this.damage = 50
 
         this.width = 120
         this.height = 150
@@ -18,11 +20,15 @@ class Player extends npc {
         this.sprite.frames = this.animeSet.idle.frames
         this.sprite.idx = 0
 
+        this.action = "idle"
+
+        this.test = false
+
 
     }
     showHealth() {
         this.ctx.fillStyle = "red"
-        this.ctx.fillRect(0, 0, this.health * 10, 20)
+        this.ctx.fillRect(0, 0, this.health * 5, 20)
     }
 
     walk() {
@@ -32,21 +38,7 @@ class Player extends npc {
         this.posX -= this.speedBack
     }
 
-    receibeDamage(damage) {
-        this.health -= damage
 
-        this.sprite.src = this.animeSet.hit.img
-        this.sprite.frames = this.animeSet.hit.frames
-        this.sprite.idx = 0
-
-        setTimeout(() => {
-            this.sprite.src = this.animeSet.idle.img
-            this.sprite.frames = this.animeSet.idle.frames
-            this.sprite.idx = 0
-
-        }, 200)
-
-    }
 
     setListeners() {
         document.onkeydown = (e) => {
@@ -55,13 +47,22 @@ class Player extends npc {
 
                 case this.controls.j:
 
-                    this.sprite.src = this.animeSet.attack.img
-                    this.sprite.idx = 0
-                    this.sprite.frames = this.animeSet.attack.frames
-                    this.height = 240
-                    this.width = 180
-                    this.posY = this.gameH * .95 - this.height
-                    this.sprite.time = 250
+                    if (this.test == false) {
+                        this.sprite.src = this.animeSet.attack.img
+                        this.sprite.idx = 0
+                        this.sprite.frames = this.animeSet.attack.frames
+                        this.height = 240
+                        this.width = 180
+                        this.posY = this.gameH * .95 - this.height
+                        this.sprite.time = 250
+                        this.test = true
+
+                        this.action = "attack"
+
+                        setTimeout(() => {
+                            this.test = false
+                        }, 800)
+                    }
 
                     break;
 
@@ -77,6 +78,7 @@ class Player extends npc {
                         this.width = 100
                         this.posY = this.gameH * .94 - this.height
                         this.sprite.test = true
+                        this.action = "walk"
                     }
 
                     break;
@@ -92,6 +94,8 @@ class Player extends npc {
                         this.width = 100
                         this.posY = this.gameH * .94 - this.height
                         this.sprite.test = true
+
+                        this.action = "walkBack"
                     }
 
                     break;
@@ -107,6 +111,8 @@ class Player extends npc {
                         this.width = 100
                         this.posY = this.gameH * .94 - this.height
                         this.sprite.test = true
+
+                        this.action = "block"
                     }
 
                     break;
@@ -120,6 +126,8 @@ class Player extends npc {
                     this.posY = this.gameH * .94 - this.height
                     this.sprite.time = 500
 
+                    this.action = "invoke"
+
                     break;
                 case this.controls.k:
 
@@ -131,7 +139,7 @@ class Player extends npc {
                     this.posY = this.gameH * .94 - this.height
                     this.sprite.time = 500
 
-
+                    this.action = "throw"
                     break;
 
             }
@@ -147,6 +155,8 @@ class Player extends npc {
                 this.sprite.time = undefined
                 this.sprite.idx = 0
                 this.sprite.test = false
+
+                this.action = "idle"
             }
             if (e.keyCode === this.controls.s) {
 
@@ -158,6 +168,8 @@ class Player extends npc {
                 this.sprite.time = undefined
                 this.sprite.idx = 0
                 this.sprite.test = false
+
+                this.action = "idle"
             }
 
             if (e.keyCode === this.controls.a) {
@@ -169,6 +181,8 @@ class Player extends npc {
                 this.sprite.time = undefined
                 this.sprite.idx = 0
                 this.sprite.test = false
+
+                this.action = "idle"
             }
 
 

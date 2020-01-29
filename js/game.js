@@ -70,11 +70,13 @@ const Game = {
             this.drawAll()
             this.player.showHealth()
             this.moveAll()
+            this.enemiesHealth()
             this.checkAll()
+            this.enemiesHealth()
             this.checkHealth()
 
 
-            if (this.counter % 80 == 0) {
+            if (this.counter % 70 == 0) {
                 this.enemies.push(new Enemy(this.ctx, skeletonAnimations, this.width, this.height))
             }
 
@@ -99,20 +101,49 @@ const Game = {
         this.enemies.forEach(elm => elm.move())
     },
 
+    enemiesHealth() {
+
+        this.enemies.forEach((elm, idx) => {
+            if (elm.health <= 0) {
+                elm.sprite.src = elm.animeSet.death.img
+                elm.sprite.frames = elm.animeSet.death.frames
+                elm.sprite.idx = 0
+                elm.speed = 0
+                setTimeout(() => {
+                    this.enemies.splice(idx, 1)
+                }, 300)
+            }
+        })
+    },
+
     checkAll() {
 
         this.enemies.forEach(elm => {
 
-            if (elm.posX <= this.player.posX - 70 + this.player.width && !elm.process) {
+            if (elm.posX <= this.player.posX - 70 + this.player.width && !elm.process && elm.health > 0) {
                 elm.process = true
                 setTimeout(() => {
-                    if (elm.posX <= this.player.posX - 70 + this.player.width)
+                    if (elm.posX <= this.player.posX - 70 + this.player.width && this.player.action != "block")
                         this.player.receibeDamage(elm.damage)
                     elm.process = false
                 }, 820)
             }
 
-            if (elm.posX <= this.player.posX - 70 + this.player.width && elm.action != "attack") {
+            if (this.player.action == "attack" && elm.posX <= this.player.posX + this.player.width && elm.health > 0) {
+
+                this.player.process = true
+                setTimeout(() => {
+
+                    if (elm.posX <= this.player.posX + this.player.width) {
+                        elm.receibeDamage(this.player.damage)
+                    }
+
+                    elm.process = false
+                }, 200)
+
+            }
+
+            if (elm.posX <= this.player.posX - 70 + this.player.width && elm.action != "attack" && elm.health > 0) {
 
                 elm.sprite.src = elm.animeSet.attack.img
                 elm.sprite.frames = elm.animeSet.attack.frames
@@ -126,7 +157,7 @@ const Game = {
 
                 elm.posY = this.height * .93 - elm.height
 
-            } else if (elm.action != "walk" && !(elm.posX <= this.player.posX + this.player.width)) {
+            } else if (elm.action != "walk" && !(elm.posX <= this.player.posX + this.player.width && elm.health > 0)) {
                 elm.sprite.src = elm.animeSet.walk.img
                 elm.sprite.frames = elm.animeSet.walk.frames
                 elm.sprite.idx = elm.animeSet.walk.frames - 1
@@ -152,7 +183,7 @@ const Game = {
         if (this.player.action == "death") {
             setTimeout(() => {
                 this.status = "dead"
-            }, 500)
+            }, 650)
         }
         if (this.status == "dead") {
             confirm("Reintentar?") ? this.reset() : window.close()

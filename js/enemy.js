@@ -9,6 +9,8 @@ class Enemy extends npc {
         this.presetSpeed = 5
         this.damage = 25
 
+        this.health = 100
+
         this.speed = 5
         this.posX = gameW
         this.posY = gameH * .93 - this.height
@@ -18,7 +20,6 @@ class Enemy extends npc {
         this.sprite.idx = this.animeSet.walk.frames - 1
         this.action = "walk"
 
-        this.process = false
 
     }
     draw(counter) {

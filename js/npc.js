@@ -23,6 +23,8 @@ class npc {
 
         this.sprite.time = undefined
 
+        this.process = false
+
     }
 
     draw(counter) {
@@ -62,6 +64,23 @@ class npc {
         )
 
         this.animate(counter)
+    }
+    receibeDamage(damage) {
+        this.health -= damage
+
+        this.sprite.src = this.animeSet.hit.img
+        this.sprite.frames = this.animeSet.hit.frames
+        this.sprite.idx = 0
+        this.action = "hit"
+
+        setTimeout(() => {
+            this.sprite.src = this.animeSet.idle.img
+            this.sprite.frames = this.animeSet.idle.frames
+            this.sprite.idx = 0
+            this.action = "idle"
+
+        }, 200)
+
     }
 
 
