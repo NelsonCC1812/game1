@@ -35,6 +35,17 @@ class Player extends npc {
     receibeDamage(damage) {
         this.health -= damage
 
+        this.sprite.src = this.animeSet.hit.img
+        this.sprite.frames = this.animeSet.hit.frames
+        this.sprite.idx = 0
+
+        setTimeout(() => {
+            this.sprite.src = this.animeSet.idle.img
+            this.sprite.frames = this.animeSet.idle.frames
+            this.sprite.idx = 0
+
+        }, 200)
+
     }
 
     setListeners() {
