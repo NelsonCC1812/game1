@@ -29,6 +29,7 @@ class Enemy extends npc {
         this.health -= damage
         this.sprite.src = this.animeSet.hit.img
         this.sprite.frames = this.animeSet.hit.frames
+        this.posY = this.gameH * .93 - this.height
         this.sprite.idx = 0
         this.action = "hit"
 
@@ -44,7 +45,7 @@ class Enemy extends npc {
             this.width = 150
             this.height = 200
 
-            this.posY = this.height * .93 - this.height
+            this.posY = this.gameH * .93 - this.height
 
         }, 200)
 

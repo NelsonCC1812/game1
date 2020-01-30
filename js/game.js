@@ -29,7 +29,7 @@ const Game = {
     action: false,
     hit: false,
     enemiesCounter: 0,
-    enemiesObjetive: 1,
+    enemiesObjetive: 10,
     enginei: undefined,
     status: "starting",
     music: [
@@ -76,7 +76,7 @@ const Game = {
 
         let sound = document.createElement("audio")
         sound.src = "sounds/planet-secret.wav"
-        sound.volume = .4
+        sound.volume = .2
         sound.play()
 
 
@@ -170,15 +170,16 @@ const Game = {
                         this.player.receibeDamage(elm.damage)
                         let sound = document.createElement("audio")
                         sound.src = "sounds/heart-beat.wav"
-                        sound.volume = .4
+                        sound.volume = 1
                         sound.play()
                         this.hit = true
+                        setInterval(() => sound.pause(), 900)
                         setTimeout(() => {
                             this.hit = false
                         }, 1000)
                         console.log("hit")
                     }
-                }, 820)
+                }, 300)
                 elm.process = false
             }
 
@@ -297,11 +298,16 @@ const Game = {
         if (this.player.action == "death") {
             setTimeout(() => {
                 this.status = "dead"
+                let sound = document.createElement("audio")
+                sound.src = "sounds/death-bell.wav"
+                sound.volume = .4
+                sound.play()
             }, 650)
         }
         if (this.status == "dead") {
 
-            clearInterval("engine1")
+            clearInterval(this.enginei)
+
             this.ctx.fillStyle = "white"
             this.ctx.fillText("You Have Died!!", this.width / 2 - 60, this.height / 2 - 100)
 
