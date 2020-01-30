@@ -27,7 +27,7 @@ const Game = {
     },
     action: false,
     enemiesCounter: 0,
-    enemiesObjetive: 2,
+    enemiesObjetive: 20,
     enginei: undefined,
     status: "starting",
 
@@ -79,7 +79,11 @@ const Game = {
             this.checkInvoke()
             this.enemiesHealth()
             this.checkHealth()
+            this.player.drawSythe(this.counter)
             this.invokeShow()
+            this.enemiesCountShow()
+
+            if (this.player.sythe) this.checkSythe()
 
 
             if (this.counter % 70 == 0) {
@@ -203,6 +207,14 @@ const Game = {
 
     },
 
+    enemiesCountShow() {
+
+        this.ctx.font = "20px Arial"
+        this.ctx.fillStyle = "blue"
+        this.ctx.fillText(this.enemiesObjetive - this.enemiesCounter, this.width * .90, 40)
+
+    },
+
     checkInvoke() {
         if (this.player.action === "invoke" && !this.player.process && this.player.invoke) {
             this.player.process = true
@@ -221,6 +233,20 @@ const Game = {
 
         }
     },
+
+    checkSythe() {
+
+        this.enemies.forEach(elm => {
+            if (elm.posX <= this.player.sythe.posX + this.player.sythe.width && !elm.sytheHit) {
+                elm.receibeDamage(this.player.sythe.damage)
+                this.player.sythe.count++
+            }
+        })
+
+        if (this.player.sythe.count >= this.player.sythe.maxPass || this.player.sythe.posX >= this.width) this.player.destroySythe()
+    },
+
+
 
     checkHealth() {
         if (this.player.health <= 0 && this.player.action != "death") {
@@ -249,7 +275,7 @@ const Game = {
         setTimeout(() => {
             this.status = "win"
 
-            confirm("You have won\nAgain?") ? this.reset() : window.close()
+            confirm("You have won\nAgain?") ? this.reset() : null //window.close()
         }, 1000)
 
     }

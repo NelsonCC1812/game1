@@ -20,6 +20,8 @@ class Enemy extends npc {
         this.sprite.idx = this.animeSet.walk.frames - 1
         this.action = "walk"
 
+        this.sytheHit = false
+
 
     }
 
@@ -32,17 +34,17 @@ class Enemy extends npc {
 
         setTimeout(() => {
 
-            elm.sprite.src = elm.animeSet.attack.img
-            elm.sprite.frames = elm.animeSet.attack.frames
-            elm.sprite.idx = elm.sprite.frames - 1
-            elm.speed = 0
-            elm.action = "attack"
-            this.player.speed = 0
+            this.sprite.src = this.animeSet.attack.img
+            this.sprite.frames = this.animeSet.attack.frames
+            this.sprite.idx = this.sprite.frames - 1
+            this.speed = 0
+            this.action = "attack"
+            this.speed = 0
 
-            elm.width = 150
-            elm.height = 200
+            this.width = 150
+            this.height = 200
 
-            elm.posY = this.height * .93 - elm.height
+            this.posY = this.height * .93 - this.height
 
         }, 200)
 

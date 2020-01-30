@@ -28,8 +28,41 @@ class Player extends npc {
 
         this.invoke = true
 
+        this.sythe = undefined
+
+        this.sytheReady = true
+
 
     }
+    throwSythe() {
+
+        if (!this.sythe && this.sytheReady) {
+            this.sythe = new Sythe(this.ctx, this.posX + this.width, this.gameH)
+            this.sytheReady = false
+
+            setTimeout(() => {
+                this.sytheReady = true
+
+            }, 3000)
+
+        }
+
+
+    }
+
+    drawSythe(counter) {
+
+        if (this.sythe) {
+            this.sythe.move()
+            this.sythe.draw(counter)
+        }
+    }
+
+    destroySythe() {
+
+        this.sythe = undefined
+    }
+
     showHealth() {
         this.ctx.fillStyle = "red"
         this.ctx.fillRect(0, 0, this.health * 5, 20)
@@ -40,6 +73,16 @@ class Player extends npc {
     }
     walkBack() {
         this.posX -= this.speedBack
+    }
+
+    setIdle() {
+        this.width = 120
+        this.height = 150
+        this.sprite.src = this.animeSet.idle.img
+        this.sprite.frames = this.animeSet.idle.frames
+        this.sprite.idx = 0
+
+        this.action = "idle"
     }
 
 
@@ -144,8 +187,13 @@ class Player extends npc {
                     this.width = 180
                     this.posY = this.gameH * .94 - this.height
                     this.sprite.time = 500
+                    this.throwSythe()
 
                     this.action = "throw"
+
+                    setTimeout(() => {
+                        this.setIdle()
+                    }, 1000)
                     break;
 
             }
