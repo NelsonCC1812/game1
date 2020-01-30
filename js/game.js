@@ -1,6 +1,7 @@
 const Game = {
     canvas: undefined,
     ctx: undefined,
+    btn: undefined,
 
     width: undefined,
     height: undefined,
@@ -26,8 +27,9 @@ const Game = {
         a: 65
     },
     action: false,
+    hit: false,
     enemiesCounter: 0,
-    enemiesObjetive: 20,
+    enemiesObjetive: 1,
     enginei: undefined,
     status: "starting",
     music: [
@@ -37,11 +39,14 @@ const Game = {
         "music/music4.mp3"
     ],
 
-    init(canvas) {
+    init(canvas, btn, enemies) {
 
 
         this.canvas = canvas
         this.ctx = canvas.getContext("2d")
+
+        this.btn = btn
+        if (enemies) this.enemiesObjetive = enemies
 
         this.setDimensions()
         this.start()
@@ -68,6 +73,11 @@ const Game = {
         this.warMusic.src = this.music[Math.floor(Math.random() * this.music.length)]
         this.warMusic.volume = 0
         this.warMusic.play()
+
+        let sound = document.createElement("audio")
+        sound.src = "sounds/planet-secret.wav"
+        sound.volume = .4
+        sound.play()
 
 
         this.status = "playing"
@@ -151,13 +161,23 @@ const Game = {
 
     checkAll() {
 
-        this.enemies.forEach((elm, enmIdx) => {
+        this.enemies.forEach((elm, idx) => {
 
             if (elm.posX <= this.player.posX - 70 + this.player.width && !elm.process && elm.health > 0) {
                 elm.process = true
                 setTimeout(() => {
-                    if (elm.posX <= this.player.posX - 70 + this.player.width && this.player.action != "block")
+                    if (elm.posX <= this.player.posX - 70 + this.player.width && this.player.action != "block" && !this.hit) {
                         this.player.receibeDamage(elm.damage)
+                        let sound = document.createElement("audio")
+                        sound.src = "sounds/heart-beat.wav"
+                        sound.volume = .4
+                        sound.play()
+                        this.hit = true
+                        setTimeout(() => {
+                            this.hit = false
+                        }, 1000)
+                        console.log("hit")
+                    }
                 }, 820)
                 elm.process = false
             }
@@ -280,7 +300,21 @@ const Game = {
             }, 650)
         }
         if (this.status == "dead") {
-            confirm("Reintentar?") ? this.reset() : null //window.close()
+
+            clearInterval("engine1")
+            this.ctx.fillStyle = "white"
+            this.ctx.fillText("You Have Died!!", this.width / 2 - 60, this.height / 2 - 100)
+
+
+            this.btn.innerText = "Restart?"
+            this.btn.classList.remove("invisible")
+
+            this.btn.onclick = () => {
+                this.btn.classList.add("invisible")
+                this.enemiesCounter = 0
+                this.warMusic.pause()
+                this.start()
+            }
         }
     },
 
@@ -293,8 +327,25 @@ const Game = {
         setTimeout(() => {
             this.status = "win"
 
-            confirm("You have won\nAgain?") ? this.reset() : null //window.close()
+            this.winWindow()
         }, 1000)
+
+    },
+
+    winWindow() {
+        this.ctx.fillStyle = "white"
+        this.ctx.fillText("You Have Won!!", this.width / 2 - 60, this.height / 2 - 100)
+
+
+        this.btn.innerText = "Restart"
+        this.btn.classList.remove("invisible")
+
+        this.btn.onclick = () => {
+            this.btn.classList.add("invisible")
+            this.enemiesCounter = 0
+            this.warMusic.pause()
+            this.start()
+        }
 
     }
 

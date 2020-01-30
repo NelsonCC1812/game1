@@ -9,13 +9,29 @@ body {
 
 #start {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 40%;
+    left: 40%;
 
     border-style: none;
-    background-color: aquamarine;
+    background-color: royalblue;
     border-radius: 5px;
     padding: 30px 100px;
     color: wheat;
     font-size: 18px;
+}
+
+h2 {
+    position: absolute;
+    top: 27%;
+    left: 40%;
+
+}
+
+#enemies {
+    position: absolute;
+    top: 34%;
+    left: 40%;
+
+    padding: 10px 50px;
+    background-color: rgb(210, 210, 210);
 }
