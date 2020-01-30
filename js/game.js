@@ -26,6 +26,10 @@ const Game = {
         a: 65
     },
     action: false,
+    enemiesCounter: 0,
+    enemiesObjetive: 2,
+    enginei: undefined,
+    status: "starting",
 
     init(canvas) {
         this.canvas = canvas
@@ -65,7 +69,7 @@ const Game = {
 
     engine() {
 
-        this.interval = setInterval(() => {
+        this.enginei = setInterval(() => {
             this.clearScreen()
             this.drawAll()
             this.player.showHealth()
@@ -77,7 +81,7 @@ const Game = {
 
 
             if (this.counter % 70 == 0) {
-                this.enemies.push(new Enemy(this.ctx, skeletonAnimations, this.width, this.height))
+                this.enemies.push(new Enemy(this.ctx, this.counter, skeletonAnimations, this.width, this.height))
             }
 
 
@@ -109,39 +113,48 @@ const Game = {
                 elm.sprite.frames = elm.animeSet.death.frames
                 elm.sprite.idx = 0
                 elm.speed = 0
-                setTimeout(() => {
-                    this.enemies.splice(idx, 1)
-                }, 300)
+
+                this.enemiesCounter++
+                this.enemies.splice(idx, 1)
+
+                // setTimeout(() => {
+
+                // }, 300)
             }
         })
+        if (this.enemiesCounter >= this.enemiesObjetive) this.win()
     },
 
     checkAll() {
 
-        this.enemies.forEach(elm => {
+        this.enemies.forEach((elm, enmIdx) => {
 
             if (elm.posX <= this.player.posX - 70 + this.player.width && !elm.process && elm.health > 0) {
                 elm.process = true
                 setTimeout(() => {
                     if (elm.posX <= this.player.posX - 70 + this.player.width && this.player.action != "block")
                         this.player.receibeDamage(elm.damage)
-                    elm.process = false
                 }, 820)
+                elm.process = false
             }
 
-            if (this.player.action == "attack" && elm.posX <= this.player.posX + this.player.width && elm.health > 0) {
+            //Enemies damage counters
+            if (this.player.action == "attack" && elm.health > 0 && !this.player.process) {
 
                 this.player.process = true
                 setTimeout(() => {
 
-                    if (elm.posX <= this.player.posX + this.player.width) {
-                        elm.receibeDamage(this.player.damage)
-                    }
+                    this.enemies.forEach(elm2 => {
+                        if (this.player.posX + this.player.width >= elm2.posX - 20) {
+                            elm2.receibeDamage(this.player.damage)
+                        }
+                    })
 
-                    elm.process = false
+                    this.player.process = false
                 }, 200)
-
             }
+
+            //Enemies Animations
 
             if (elm.posX <= this.player.posX - 70 + this.player.width && elm.action != "attack" && elm.health > 0) {
 
@@ -169,6 +182,8 @@ const Game = {
                 elm.height = 150
                 elm.posY = this.height * .93 - elm.height
             }
+
+
         })
     },
 
@@ -188,6 +203,20 @@ const Game = {
         if (this.status == "dead") {
             confirm("Reintentar?") ? this.reset() : window.close()
         }
+    },
+
+    win() {
+
+        this.fps *= .50
+
+        clearInterval(this.enginei)
+
+        setTimeout(() => {
+            this.status = "win"
+
+            confirm("You have won\nAgain?") ? this.reset() : window.close()
+        }, 1000)
+
     }
 
 }

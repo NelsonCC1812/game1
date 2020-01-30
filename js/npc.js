@@ -67,7 +67,7 @@ class npc {
     }
     receibeDamage(damage) {
         this.health -= damage
-
+        console.log(this.health)
         this.sprite.src = this.animeSet.hit.img
         this.sprite.frames = this.animeSet.hit.frames
         this.sprite.idx = 0

@@ -8,7 +8,7 @@ class Player extends npc {
         this.presetSpeed = 20
         this.speedBack = 15
         this.posY = gameH * .75
-        this.health = 200
+        this.health = Infinity
 
         this.damage = 50
 
@@ -23,6 +23,8 @@ class Player extends npc {
         this.action = "idle"
 
         this.test = false
+
+        this.process = false
 
 
     }
@@ -173,6 +175,19 @@ class Player extends npc {
             }
 
             if (e.keyCode === this.controls.a) {
+                this.posY = this.gameH * 0.75
+                this.width = 100
+                this.height = 150
+                this.sprite.src = this.animeSet.idle.img
+                this.sprite.frames = this.animeSet.idle.frames
+                this.sprite.time = undefined
+                this.sprite.idx = 0
+                this.sprite.test = false
+
+                this.action = "idle"
+            }
+
+            if (e.keyCode === this.controls.j) {
                 this.posY = this.gameH * 0.75
                 this.width = 100
                 this.height = 150
