@@ -8,7 +8,7 @@ class Player extends npc {
         this.presetSpeed = 20
         this.speedBack = 15
         this.posY = gameH * .75
-        this.health = Infinity
+        this.health = 200
 
         this.damage = 50
 
@@ -25,6 +25,8 @@ class Player extends npc {
         this.test = false
 
         this.process = false
+
+        this.invoke = true
 
 
     }
@@ -129,6 +131,8 @@ class Player extends npc {
                     this.sprite.time = 500
 
                     this.action = "invoke"
+
+                    setTimeout(() => this.action = "idle", 500)
 
                     break;
                 case this.controls.k:

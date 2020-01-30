@@ -76,8 +76,10 @@ const Game = {
             this.moveAll()
             this.enemiesHealth()
             this.checkAll()
+            this.checkInvoke()
             this.enemiesHealth()
             this.checkHealth()
+            this.invokeShow()
 
 
             if (this.counter % 70 == 0) {
@@ -185,6 +187,39 @@ const Game = {
 
 
         })
+    },
+
+    invokeShow() {
+        this.ctx.font = "18px Arial"
+        if (this.player.invoke) {
+            this.ctx.fillStyle = "green"
+            this.ctx.fillText("Invoke Ready", 10, 40)
+        } else {
+            this.ctx.fillStyle = "black"
+            this.ctx.fillText("Invoke Refreshing", 10, 40)
+
+
+        }
+
+    },
+
+    checkInvoke() {
+        if (this.player.action === "invoke" && !this.player.process && this.player.invoke) {
+            this.player.process = true
+            this.player.invoke = false
+
+            this.enemies.forEach(elm => elm.posX += 400)
+            setTimeout(() => {
+
+                this.player.invoke = true
+
+            }, 5000)
+            setTimeout(() => {
+                this.player.process = false
+
+            }, 1000)
+
+        }
     },
 
     checkHealth() {
