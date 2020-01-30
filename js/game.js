@@ -30,8 +30,16 @@ const Game = {
     enemiesObjetive: 20,
     enginei: undefined,
     status: "starting",
+    music: [
+        "music/music1.mp3",
+        "music/music2.mp3",
+        "music/music3.mp3",
+        "music/music4.mp3"
+    ],
 
     init(canvas) {
+
+
         this.canvas = canvas
         this.ctx = canvas.getContext("2d")
 
@@ -56,6 +64,12 @@ const Game = {
     },
 
     reset() {
+        this.warMusic = document.createElement("audio")
+        this.warMusic.src = this.music[Math.floor(Math.random() * this.music.length)]
+        this.warMusic.volume = 0
+        this.warMusic.play()
+
+
         this.status = "playing"
         this.enemies = []
         this.player = new Player(this.ctx, playerAnimations, this.controls, this.width, this.height)
@@ -68,6 +82,8 @@ const Game = {
 
 
     engine() {
+
+
 
         this.enginei = setInterval(() => {
             this.clearScreen()
@@ -82,6 +98,8 @@ const Game = {
             this.player.drawSythe(this.counter)
             this.invokeShow()
             this.enemiesCountShow()
+
+            if (this.warMusic.volume < .5) this.warMusic.volume++
 
             if (this.player.sythe) this.checkSythe()
 
@@ -262,7 +280,7 @@ const Game = {
             }, 650)
         }
         if (this.status == "dead") {
-            confirm("Reintentar?") ? this.reset() : window.close()
+            confirm("Reintentar?") ? this.reset() : null //window.close()
         }
     },
 

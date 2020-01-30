@@ -2,8 +2,12 @@ let started = true
 
 window.onload = () => {
 
-    //started ? null : started = start()
-    Game.init(document.getElementById("myCanvas"))
+    let btn = document.getElementById("start")
+    btn.onclick = () => {
+        btn.classList.add("invisible")
+        Game.init(document.getElementById("myCanvas"))
+
+    }
 
 }
 
