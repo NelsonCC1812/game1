@@ -16,7 +16,7 @@ const Game = {
     enemiesType: [],
 
     background: undefined,
-    backgroundimg: "./img/background/background.png",
+    backgroundimg: "./img/background/Background.png",
 
     controls: {
         j: 74,
