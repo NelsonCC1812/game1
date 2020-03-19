@@ -11,9 +11,7 @@ window.onload = () => {
         input.classList.add("invisible")
 
         Game.init(document.getElementById("myCanvas"), btn, input.value)
-
     }
-
 }
 
 // function start() {

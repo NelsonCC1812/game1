@@ -240,8 +240,6 @@ const Game = {
         } else {
             this.ctx.fillStyle = "black"
             this.ctx.fillText("Invoke Refreshing", 10, 40)
-
-
         }
 
     },
@@ -269,7 +267,6 @@ const Game = {
                 this.player.process = false
 
             }, 1000)
-
         }
     },
 
@@ -293,7 +290,6 @@ const Game = {
             this.player.sprite.frames = this.player.animeSet.death.frames
             this.player.sprite.idx = 0
             this.player.action = "death"
-
         }
         if (this.player.action == "death") {
             setTimeout(() => {
@@ -352,7 +348,5 @@ const Game = {
             this.warMusic.pause()
             this.start()
         }
-
     }
-
 }

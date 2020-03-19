@@ -31,9 +31,8 @@ class Player extends npc {
         this.sythe = undefined
 
         this.sytheReady = true
-
-
     }
+
     throwSythe() {
 
         if (!this.sythe && this.sytheReady) {
@@ -44,10 +43,7 @@ class Player extends npc {
                 this.sytheReady = true
 
             }, 3000)
-
         }
-
-
     }
 
     drawSythe(counter) {
@@ -58,22 +54,18 @@ class Player extends npc {
         }
     }
 
-    destroySythe() {
+    destroySythe = () => this.sythe = undefined
 
-        this.sythe = undefined
-    }
 
     showHealth() {
         this.ctx.fillStyle = "red"
         this.ctx.fillRect(0, 0, this.health * 5, 20)
     }
 
-    walk() {
-        this.posX += this.speed
-    }
-    walkBack() {
-        this.posX -= this.speedBack
-    }
+    walk = () => this.posX += this.speed
+
+    walkBack = () => this.posX -= this.speedBack
+
 
     setIdle() {
         this.width = 120
@@ -129,6 +121,7 @@ class Player extends npc {
                     }
 
                     break;
+
                 case this.controls.a:
                     this.walkBack()
 
@@ -195,7 +188,6 @@ class Player extends npc {
                         this.setIdle()
                     }, 1000)
                     break;
-
             }
         }
 
@@ -251,10 +243,6 @@ class Player extends npc {
 
                 this.action = "idle"
             }
-
-
         }
-
-
     }
 }

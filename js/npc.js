@@ -14,7 +14,6 @@ class npc {
         this.frames = 5
         this.posY = undefined
 
-
         this.health = undefined
 
         this.animeSet = animeSet
@@ -24,7 +23,6 @@ class npc {
         this.sprite.time = undefined
 
         this.process = false
-
     }
 
     draw(counter) {
@@ -79,9 +77,7 @@ class npc {
             this.action = "idle"
 
         }, 200)
-
     }
-
 
     animate(counter) {
         if (counter % this.frames) {
@@ -89,5 +85,4 @@ class npc {
             if (this.sprite.idx > this.sprite.frames - 1) this.sprite.idx = 0
         }
     }
-
 }

@@ -4,7 +4,6 @@ class Sythe {
 
         this.ctx = ctx
 
-
         this.posX = posX
 
         this.width = 150
@@ -18,7 +17,6 @@ class Sythe {
 
         this.maxPass = 3
 
-
         this.sprite = new Image()
         this.sprite.src = "sprites/sythe/sythe.png"
         this.sprite.frames = 4
@@ -29,10 +27,8 @@ class Sythe {
         this.speed = 30
     }
 
-    move() {
-        this.posX += this.speed
+    move = () => this.posX += this.speed
 
-    }
 
     draw(counter) {
 
@@ -57,5 +53,4 @@ class Sythe {
             if (this.sprite.idx > this.sprite.frames - 1) this.sprite.idx = 0
         }
     }
-
 }
